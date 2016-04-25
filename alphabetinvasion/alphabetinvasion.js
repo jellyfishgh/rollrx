@@ -45,20 +45,20 @@
         var lookup = "abcdefghijklmnopqrstuvwxyz";
         var levels = {
             "Level 1 - Rookies": [60, 1300],
-            "Level 2 - Tenderfoots": [55, 1200],
-            "Level 3 - Militia": [50, 1100],
-            "Level 4 - Privates": [50, 1000],
-            "Level 5 - Corporals": [45, 800],
-            "Level 6 - Sergeants": [40, 650],
-            "Level 7 - Master Sergeants": [35, 500],
-            "Level 8 - Lieutenants": [30, 450],
-            "Level 9 - Captains": [25, 400],
-            "Level 10 - Majors": [20, 400],
-            "Level 11 - Colonels": [15, 350],
-            "Level 12 - Generals": [11, 350],
-            "Level 13 - Special Forces": [9, 350],
-            "Level 14 - Black Ops": [7, 350],
-            "Level 15 - Ninjas": [5, 350]
+            "Level 2 - Tenderfoots": [55, 1200]
+            // "Level 3 - Militia": [50, 1100],
+            // "Level 4 - Privates": [50, 1000],
+            // "Level 5 - Corporals": [45, 800],
+            // "Level 6 - Sergeants": [40, 650],
+            // "Level 7 - Master Sergeants": [35, 500],
+            // "Level 8 - Lieutenants": [30, 450],
+            // "Level 9 - Captains": [25, 400],
+            // "Level 10 - Majors": [20, 400],
+            // "Level 11 - Colonels": [15, 350],
+            // "Level 12 - Generals": [11, 350],
+            // "Level 13 - Special Forces": [9, 350],
+            // "Level 14 - Black Ops": [7, 350],
+            // "Level 15 - Ninjas": [5, 350]
         };
         AlphabetInvasion.prototype.showMessage = function(msg) {
             if (msg && msg.length === 0) {
@@ -102,7 +102,7 @@
         AlphabetInvasion.prototype.youLose = function() {
             for (var i = 0, len = this.enemies.length; i < len; i++) {
                 var enemy = this.enemies[i];
-                if (enemy !== this.enemies[i]) {
+                if (enemy !== this.enemies[0]) {
                     enemy.textContent = ':P';
                     enemy.className += ' rotate';
                     enemy.style.fontSize = '72px';
@@ -116,14 +116,14 @@
             var self = this;
             Rx.Observable.fromArray(this.enemies).subscribe(function(enemy) {
                 var newPos = enemy.offsetTop + factor;
-                if (newPos >= playfield + 44) self.youLose();
+                if (newPos >= playfieldheight + 44) self.youLose();
             });
         };
         AlphabetInvasion.prototype.finish = function(msg) {
             if (this.gameState === GameState.stopped) return;
             this.gameState = GameState.stopped;
             this.gameloop.dispose();
-            ths.generator.dispose();
+            this.generator.dispose();
             this.keyboard.dispose();
             this.showMessage(msg);
             var self = this;
@@ -135,7 +135,7 @@
             this.finish("You win this time Earthing! We'll be back soon!");
         };
         AlphabetInvasion.prototype.nextLevel = function() {
-            if (this.currentLevel === 15) this.youWin();
+            if (this.currentLevel === 2) this.youWin();
             this.gameState = GameState.stopped;
             this.gameloop.dispose();
             this.generator.dispose();
@@ -197,7 +197,7 @@
             var self = this;
             var play = function() {
                 self.hideMessage();
-                var enemiesThisLevel = self.currentLevel * 2 + 13;
+                var enemiesThisLevel = self.currentLevel * 2 + 2;
                 self.remainingEnemies.textContent = enemiesThisLevel;
                 var capitalLetterProbability = 1 - ((self.currentLevel * 2.5) / 100);
                 var killed = 0;
@@ -211,7 +211,7 @@
                         self.nextLevel();
                         return;
                     }
-                    var key = e.shifKey ? String.fromCharCode(e.keyCode) : String.fromCharCode(e.keyCode).toLowerCase();
+                    var key = e.shiftKey ? String.fromCharCode(e.keyCode) : String.fromCharCode(e.keyCode).toLowerCase();
                     console.log('key pressed: ' + key + ' enemy text: ' + self.enemies[0].textContent);
                     if (key === self.enemies[0].textContent) {
                         var enemy = self.enemies.shift();

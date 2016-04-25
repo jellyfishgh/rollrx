@@ -1,0 +1,27 @@
+{
+  "name": "rollrx",
+  "version": "1.0.0",
+  "description": "roll up with RxJS",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jellyfishgh/rollrx.git"
+  },
+  "keywords": [
+    "RXJS",
+    "Reactive"
+  ],
+  "author": "jellyfishgh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jellyfishgh/rollrx/issues"
+  },
+  "homepage": "https://github.com/jellyfishgh/rollrx#readme",
+  "dependencies": {
+    "rx": "^4.1.0"
+  }
+}
