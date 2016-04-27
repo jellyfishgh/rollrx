@@ -7,10 +7,12 @@
         function logInput(text){
             $llr.append($("<li>").text(text));
         }
-        var mousemove = fromEvent(document, 'mouseup').map(function(e){
+        var mousemove = fromEvent(document, 'click').map(function(e){
+            console.log("document");
             return 'clientX: ' + e.clientX + ', clientY: ' + e.clientY;
         }).pausableBuffered();
         fromEvent($llt, 'click').map(function(e){
+            console.log("label");
             return e.target.checked;
         }).subscribe(function(checked){
             if(checked)mousemove.resume();
